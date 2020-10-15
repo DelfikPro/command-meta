@@ -1,21 +1,23 @@
 
-format:
+help per page: 8
 
-  help-per-page: 8
+messages:
 
-  help-header: '&eHelp - &fPage <page>/<total>'
-  help-entry: '&e - &f<help>'
-  help-footer: '&e Use &c/help <next> &eto check out the next page'
+  help header: '&eHelp - &fPage <page>/<total>'
+  help entry: '&e - &f<help>'
+  help footer: '&e Use &c/help <next> &eto check out the next page'
 
-  invalid-page-number: '&cThere is no such page: <page>'
+  no page: '&cThere is no such page: <page>'
 
-  forbidden-command: '&cUnknown command. Type /help to check out available commands.'
+  no command: '&cUnknown command. Type /help to check out available commands.'
 
-# If you want to disable that, use custom-commands: {}
-  custom-commands:
-    plugins: &p 'Plugins (0): &aхаха а нет плагинов'
-    pl: *p
+  custom /region: &region |
+    /region claim - заприватить регион
 
+  custom /rg: *region
+
+  override /plugins: &plugins 'Plugins (1): &aMagic plugin'
+  override /pl: *plugins
 
 groups:
   player:

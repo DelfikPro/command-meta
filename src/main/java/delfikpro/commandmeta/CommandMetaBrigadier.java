@@ -1,12 +1,18 @@
 package delfikpro.commandmeta;
 
 import lombok.AllArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
+/**
+ * Brigadier hints
+ * Available only on 1.13+
+ */
 @AllArgsConstructor
-public class CommandMeta_1_13 implements Listener {
+public class CommandMetaBrigadier implements Listener {
 
 	private final CommandMetaPlugin plugin;
 
@@ -15,13 +21,18 @@ public class CommandMeta_1_13 implements Listener {
 		if (event.getPlayer().isOp()) return;
 		event.getCommands().clear();
 
-		for (CommandMetaPlugin.Group group : plugin.getGroups()) {
+		for (Group group : plugin.getGroups()) {
 			if (event.getPlayer().hasPermission(group.getPermission())) {
 				for (String command : group.getCommands()) {
 					event.getCommands().add(command);
 				}
 			}
 		}
+	}
+
+	@EventHandler
+	public void handle(PlayerJoinEvent e) {
+		Bukkit.getScheduler().runTaskLater(plugin, () -> e.getPlayer().updateCommands(), 20);
 	}
 
 }
