@@ -23,7 +23,7 @@ public class CommandMetaBrigadier implements Listener {
 
 		for (Group group : plugin.getGroups()) {
 			if (event.getPlayer().hasPermission(group.getPermission())) {
-				for (String command : group.getCommands()) {
+				for (String command : group.getTabCompletions()) {
 					event.getCommands().add(command);
 				}
 			}

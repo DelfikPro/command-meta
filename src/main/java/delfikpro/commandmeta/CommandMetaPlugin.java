@@ -57,8 +57,14 @@ public class CommandMetaPlugin extends JavaPlugin implements Listener, CommandEx
 				if (groupConfig == null) continue;
 				String permission = groupConfig.getString("permission");
 				List<String> help = getStringListSmart(groupConfig, "help").stream().map(s -> s.replace('&', '§')).collect(Collectors.toList());
-				List<String> commands = getStringListSmart(groupConfig, "commands").stream().map(String::toLowerCase).collect(Collectors.toList());
-				this.groups.add(new Group(permission, help, commands));
+				List<String> tabCompletions = new ArrayList<>();
+				List<String> commands = getStringListSmart(groupConfig, "commands").stream().map(s -> {
+					s = s.toLowerCase();
+					if (s.startsWith("-")) return s.substring(1);
+					tabCompletions.add(s);
+					return s;
+				}).collect(Collectors.toList());
+				this.groups.add(new Group(permission, help, commands, tabCompletions));
 			}
 
 		}
@@ -109,7 +115,7 @@ public class CommandMetaPlugin extends JavaPlugin implements Listener, CommandEx
 			List<String> variants = new ArrayList<>();
 			for (Group group : groups) {
 				if (e.getSender().hasPermission(group.getPermission())) {
-					for (String command : group.getCommands()) {
+					for (String command : group.getTabCompletions()) {
 						if (command.startsWith(start))
 							variants.add("/" + command);
 					}

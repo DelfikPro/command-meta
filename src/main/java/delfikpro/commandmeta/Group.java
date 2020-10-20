@@ -10,5 +10,6 @@ public class Group {
 	private final String permission;
 	private final List<String> help;
 	private final List<String> commands;
+	private final List<String> tabCompletions;
 
 }

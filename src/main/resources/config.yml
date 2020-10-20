@@ -25,11 +25,12 @@ groups:
     help: |
       Set home - &e/sethome
       Get starter kit - &e/kit start
+      Change your password - &e/changepassword <old> <new> <new>
     commands: |
       register
-      reg
+      -reg
       login
-      l
+      -l
       changepassword
       kit
       sethome
